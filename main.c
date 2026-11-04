@@ -67,3 +67,8 @@ int main(void)
             case 9: mostrar_ayuda(); break;
             case 0: break;
         }
+        } while (opcion != 0);
+            puts("Fin del simulador.");
+            puts("Gracias por usar el proyecto del Grupo " NOMBRE_GRUPO ".");
+        return 0;
+        }
