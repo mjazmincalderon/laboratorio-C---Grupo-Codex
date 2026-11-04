@@ -33,3 +33,16 @@ int main(void)
         puts("    [0] Salir del simulador");
         puts("==============================================================");
         if (!leer_entero("  Elegi una opcion [0-9]: ", 0, 9, &opcion)) break;
+        switch (opcion) {
+            case 1: mostrar_configuracion(&configuracion); break;
+            case 2:
+                if (!configurar(&configuracion)) return 0;
+                break;
+            case 3:
+                configuracion = configuracion_predeterminada();
+                puts("Parametros restaurados.");
+                break;
+            case 4:
+                if (calcular_resultados(&configuracion, &resultados))
+                    mostrar_resultados(&configuracion, &resultados);
+                break;
