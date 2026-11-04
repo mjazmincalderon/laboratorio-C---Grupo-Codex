@@ -46,3 +46,15 @@ int main(void)
                 if (calcular_resultados(&configuracion, &resultados))
                     mostrar_resultados(&configuracion, &resultados);
                 break;
+            case 5:
+            case 6:
+                iniciar_simulacion(&simulacion, &configuracion, opcion == 6);
+                hay_simulacion = 1;
+                ejecutar_simulacion(&simulacion);
+                break;
+            case 7:
+                if (hay_simulacion) {
+                    mostrar_historial(&simulacion);
+                    mostrar_reporte(&simulacion);
+                } else puts("Primero ejecute una simulacion.");
+                break;
