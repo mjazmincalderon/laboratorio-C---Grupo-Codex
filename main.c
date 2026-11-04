@@ -58,3 +58,12 @@ int main(void)
                     mostrar_reporte(&simulacion);
                 } else puts("Primero ejecute una simulacion.");
                 break;
+            case 8:
+                if (!hay_simulacion) puts("Primero ejecute una simulacion.");
+                else if (exportar_historial(&simulacion, "historial.csv"))
+                    puts("Historial exportado en historial.csv (carpeta de ejecucion).");
+                else puts("No se pudo escribir el archivo. Revise los permisos y el disco.");
+                break;
+            case 9: mostrar_ayuda(); break;
+            case 0: break;
+        }
