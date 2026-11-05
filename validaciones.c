@@ -45,3 +45,24 @@ int leer_entero(const char *mensaje, int minimo, int maximo, int *valor)
     }
     return 0;
 }
+
+int leer_real(const char *mensaje, double minimo, double maximo, double *valor)
+{
+    char linea[TAM_LINEA], *fin;
+    double numero;
+    size_t i;
+    while (leer_linea(mensaje, linea, sizeof linea)) {
+        /* Admite coma decimal; no se admiten separadores de miles. */
+        for (i = 0; linea[i]; i++) if (linea[i] == ',') linea[i] = '.';
+        errno = 0;
+        numero = strtod(linea, &fin);
+        if (fin != linea && solo_espacios(fin) && errno != ERANGE &&
+            isfinite(numero) && numero >= minimo && numero <= maximo) {
+            *valor = numero;
+            return 1;
+        }
+        printf("Ingrese un numero finito entre %.2f y %.2f, sin miles.\n",
+               minimo, maximo);
+    }
+    return 0;
+}
