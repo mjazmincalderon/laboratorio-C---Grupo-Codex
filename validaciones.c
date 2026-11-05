@@ -64,5 +64,22 @@ int leer_real(const char *mensaje, double minimo, double maximo, double *valor)
         printf("Ingrese un numero finito entre %.2f y %.2f, sin miles.\n",
                minimo, maximo);
     }
+    int leer_caracter(const char *mensaje, const char *permitidos, char *valor)
+{
+    char linea[TAM_LINEA], *inicio;
+    char caracter;
+    while (leer_linea(mensaje, linea, sizeof linea)) {
+        inicio = linea;
+        while (isspace((unsigned char)*inicio)) inicio++;
+        caracter = (char)tolower((unsigned char)*inicio);
+        if (caracter && solo_espacios(inicio + 1) &&
+            strchr(permitidos, caracter)) {
+            *valor = caracter;
+            return 1;
+        }
+        printf("Ingrese un solo caracter de: %s.\n", permitidos);
+    }
+    return 0;
+}
     return 0;
 }
