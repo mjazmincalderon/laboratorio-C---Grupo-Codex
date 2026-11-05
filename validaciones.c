@@ -29,3 +29,19 @@ static int solo_espacios(const char *texto)
     while (isspace((unsigned char)*texto)) texto++;
     return *texto == '\0';
 }
+int leer_entero(const char *mensaje, int minimo, int maximo, int *valor)
+{
+    char linea[TAM_LINEA], *fin;
+    long numero;
+    while (leer_linea(mensaje, linea, sizeof linea)) {
+        errno = 0;
+        numero = strtol(linea, &fin, 10);
+        if (fin != linea && solo_espacios(fin) && errno != ERANGE &&
+            numero >= minimo && numero <= maximo) {
+            *valor = (int)numero;
+            return 1;
+        }
+        printf("Ingrese un entero entre %d y %d.\n", minimo, maximo);
+    }
+    return 0;
+}
