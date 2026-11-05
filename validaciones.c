@@ -45,7 +45,6 @@ int leer_entero(const char *mensaje, int minimo, int maximo, int *valor)
     }
     return 0;
 }
-
 int leer_real(const char *mensaje, double minimo, double maximo, double *valor)
 {
     char linea[TAM_LINEA], *fin;
@@ -64,7 +63,10 @@ int leer_real(const char *mensaje, double minimo, double maximo, double *valor)
         printf("Ingrese un numero finito entre %.2f y %.2f, sin miles.\n",
                minimo, maximo);
     }
-    int leer_caracter(const char *mensaje, const char *permitidos, char *valor)
+    return 0;
+}
+
+int leer_caracter(const char *mensaje, const char *permitidos, char *valor)
 {
     char linea[TAM_LINEA], *inicio;
     char caracter;
@@ -81,5 +83,6 @@ int leer_real(const char *mensaje, double minimo, double maximo, double *valor)
     }
     return 0;
 }
-    return 0;
-}
+
+
+
