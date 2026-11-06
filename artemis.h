@@ -30,3 +30,21 @@ typedef struct {
     Estado historial[MAX_REGISTROS];
     int cantidad, fallo, finalizada, omitidos;
 } Simulacion;
+
+Configuracion configuracion_predeterminada(void);
+int validar_configuracion(const Configuracion *c, char *error, unsigned capacidad);
+int calcular_resultados(const Configuracion *c, Resultados *r);
+int configurar(Configuracion *c);
+void mostrar_configuracion(const Configuracion *c);
+void mostrar_resultados(const Configuracion *c, const Resultados *r);
+void iniciar_simulacion(Simulacion *s, const Configuracion *c, int fallo);
+void avanzar_turno(Simulacion *s);
+void ejecutar_simulacion(Simulacion *s);
+void mostrar_historial(const Simulacion *s);
+void mostrar_reporte(const Simulacion *s);
+int exportar_historial(const Simulacion *s, const char *ruta);
+const char *nombre_fase(Fase fase);
+void mostrar_ayuda(void);
+
+#endif
+
