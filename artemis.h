@@ -12,3 +12,14 @@ typedef struct {
     double gravedad;        /* Modulo de la gravedad, m/s^2. */
     double paso;            /* Duracion maxima de un turno, s. */
 } Configuracion;
+typedef struct {
+    double v1, y1, v2, duracion_fase2, tiempo_corte;
+    double altura_maxima, tiempo_apogeo, aceleracion_g;
+} Resultados;
+
+typedef enum { FASE_SRB, FASE_NUCLEO, VUELO_LIBRE, FIN_CORTE, FIN_APOGEO } Fase;
+
+typedef struct {
+    double tiempo, altura, velocidad;
+    Fase fase;
+} Estado;
