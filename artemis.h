@@ -23,3 +23,10 @@ typedef struct {
     double tiempo, altura, velocidad;
     Fase fase;
 } Estado;
+typedef struct {
+    Configuracion configuracion;
+    Resultados resultados;
+    Estado estado;
+    Estado historial[MAX_REGISTROS];
+    int cantidad, fallo, finalizada, omitidos;
+} Simulacion;
