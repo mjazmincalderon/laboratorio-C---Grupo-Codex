@@ -188,3 +188,64 @@ void avanzar_turno(Simulacion *s)
     s->estado.tiempo = destino;
     registrar(s);
 }
+static void mostrar_estado(const Estado *e)
+{
+    printf("%12.3f %16.3f %16.3f  %s\n", e->tiempo, e->altura,
+           e->velocidad, nombre_fase(e->fase));
+}
+
+void ejecutar_simulacion(Simulacion *s)
+{
+    int opcion;
+    Fase anterior;
+    puts("\nCONTROL DE MISION: 1 avanzar, 2 completar automaticamente, 0 interrumpir.");
+    puts("    Tiempo(s)        Altura(m)  Velocidad(m/s)  Fase");
+    mostrar_estado(&s->estado);
+    while (!s->finalizada) {
+        if (!leer_entero("Accion: ", 0, 2, &opcion) || opcion == 0) break;
+        do {
+            anterior = s->estado.fase;
+            avanzar_turno(s);
+            if (opcion == 1 || anterior != s->estado.fase) mostrar_estado(&s->estado);
+            if (anterior == FASE_SRB && s->estado.fase == FASE_NUCLEO)
+                puts("EVENTO: SRB desacoplados. Continua el nucleo principal.");
+            if (anterior == FASE_NUCLEO && s->estado.fase == VUELO_LIBRE)
+                puts("EVENTO: motores fuera de servicio. La nave sigue subiendo por inercia.");
+        } while (opcion == 2 && !s->finalizada);
+    }
+    mostrar_reporte(s);
+}
+void mostrar_reporte(const Simulacion *s)
+{
+    puts("\n==============================================================");
+    puts("                      REPORTE DE MISION");
+    puts("                       Grupo " NOMBRE_GRUPO);
+    puts("==============================================================");
+    printf("Modo: %s. Estado: %s.\n", s->fallo ? "fallo al corte" : "nominal",
+           s->finalizada ? "completada" : "interrumpida por el usuario/fin de entrada");
+    mostrar_configuracion(&s->configuracion);
+    puts("    Tiempo(s)        Altura(m)  Velocidad(m/s)  Ultimo estado");
+    mostrar_estado(&s->estado);
+    printf("Muestras almacenadas: %d. Muestras omitidas por capacidad: %d.\n",
+           s->cantidad, s->omitidos);
+    if (s->omitidos) puts("El historial esta truncado; el estado final y los calculos se conservan.");
+    if (s->finalizada && s->fallo)
+        puts("Se alcanzo el apogeo: v = 0. A partir de aqui comenzaria el descenso.");
+    else if (s->finalizada)
+        puts("Se alcanzo la altura objetivo y se apagaron los motores.");
+    puts("Resultados teoricos para la configuracion utilizada:");
+    mostrar_resultados(&s->configuracion, &s->resultados);
+}
+
+void mostrar_historial(const Simulacion *s)
+{
+    int i;
+    char continuar;
+    puts("\n    Tiempo(s)        Altura(m)  Velocidad(m/s)  Fase");
+    for (i = 0; i < s->cantidad; i++) {
+        mostrar_estado(&s->historial[i]);
+        if ((i + 1) % 20 == 0 && i + 1 < s->cantidad) {
+            if (!leer_caracter("Ver mas filas? (s/n): ", "sn", &continuar) || continuar == 'n') break;
+        }
+    }
+}
