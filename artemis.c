@@ -118,3 +118,73 @@ void mostrar_resultados(const Configuracion *c, const Resultados *r)
     puts("\nNota: las aceleraciones dadas son netas; no se resta g durante la propulsion.");
     puts("========================================");
 }
+const char *nombre_fase(Fase fase)
+{
+    switch (fase) {
+        case FASE_SRB: return "Ascenso con SRB";
+        case FASE_NUCLEO: return "Ascenso con nucleo";
+        case VUELO_LIBRE: return "Vuelo libre";
+        case FIN_CORTE: return "Apagado de motores";
+        case FIN_APOGEO: return "Apogeo";
+    }
+    return "Estado desconocido";
+}
+
+static void registrar(Simulacion *s)
+{
+    if (s->cantidad < MAX_REGISTROS) s->historial[s->cantidad++] = s->estado;
+    else s->omitidos++;
+}
+
+void iniciar_simulacion(Simulacion *s, const Configuracion *c, int fallo)
+{
+    memset(s, 0, sizeof *s);
+    s->configuracion = *c;
+    s->fallo = fallo;
+    if (!calcular_resultados(c, &s->resultados)) {
+        s->finalizada = 1;
+        return;
+    }
+    s->estado.fase = FASE_SRB;
+    registrar(s);
+}
+
+void avanzar_turno(Simulacion *s)
+{
+    const Configuracion *c = &s->configuracion;
+    const Resultados *r = &s->resultados;
+    double destino, dt;
+    if (s->finalizada) return;
+    destino = s->estado.tiempo + c->paso;
+    /* Cada turno se detiene exactamente en el proximo evento fisico. */
+    if (s->estado.fase == FASE_SRB) {
+        if (destino >= c->t1) destino = c->t1;
+        s->estado.altura = 0.5 * c->a1 * destino * destino;
+        s->estado.velocidad = c->a1 * destino;
+        if (destino == c->t1) s->estado.fase = FASE_NUCLEO;
+    } else if (s->estado.fase == FASE_NUCLEO) {
+        if (destino >= r->tiempo_corte) destino = r->tiempo_corte;
+        dt = destino - c->t1;
+        s->estado.altura = r->y1 + r->v1 * dt + 0.5 * c->a2 * dt * dt;
+        s->estado.velocidad = r->v1 + c->a2 * dt;
+        if (destino == r->tiempo_corte) {
+            s->estado.altura = c->altura_corte;
+            s->estado.velocidad = r->v2;
+            s->estado.fase = s->fallo ? VUELO_LIBRE : FIN_CORTE;
+            s->finalizada = !s->fallo;
+        }
+    } else if (s->estado.fase == VUELO_LIBRE) {
+        if (destino >= r->tiempo_apogeo) destino = r->tiempo_apogeo;
+        dt = destino - r->tiempo_corte;
+        s->estado.altura = c->altura_corte + r->v2 * dt - 0.5 * c->gravedad * dt * dt;
+        s->estado.velocidad = r->v2 - c->gravedad * dt;
+        if (destino == r->tiempo_apogeo) {
+            s->estado.altura = r->altura_maxima;
+            s->estado.velocidad = 0.0;
+            s->estado.fase = FIN_APOGEO;
+            s->finalizada = 1;
+        }
+    }
+    s->estado.tiempo = destino;
+    registrar(s);
+}
