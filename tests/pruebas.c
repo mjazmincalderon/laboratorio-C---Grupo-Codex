@@ -55,3 +55,18 @@ c.paso = 3600;
     for (i = 0; !s.finalizada && i < 100; i++) avanzar_turno(&s);
     assert(s.finalizada);
     cerca(s.estado.altura, 3250, 1e-9);
+
+for (i = 1; i < s.cantidad; i++) {
+        assert(s.historial[i].tiempo > s.historial[i-1].tiempo);
+        assert(s.historial[i].altura >= s.historial[i-1].altura);
+    }
+    c.altura_corte = 500;
+    assert(!validar_configuracion(&c, error, sizeof error));
+    c = configuracion_predeterminada(); c.gravedad = 0;
+    assert(!calcular_resultados(&c, &r));
+    c = configuracion_predeterminada(); c.a1 = NAN;
+    assert(!validar_configuracion(&c, error, sizeof error));
+    c = configuracion_predeterminada(); c.paso = INFINITY;
+    assert(!validar_configuracion(&c, error, sizeof error));
+    c = configuracion_predeterminada(); c.altura_corte = 1000000000.0;
+    c.paso = 0.01; c.gravedad = 0.01;
