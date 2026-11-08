@@ -9,3 +9,8 @@ artemis: main.c artemis.c validaciones.c artemis.h validaciones.h
 
 test: pruebas
 	./pruebas
+pruebas: tests/pruebas.c artemis.c validaciones.c artemis.h validaciones.h
+	$(CC) $(CFLAGS) -I. tests/pruebas.c artemis.c validaciones.c -o $@ $(LDLIBS)
+
+clean:
+	$(RM) artemis artemis.exe pruebas pruebas.exe
