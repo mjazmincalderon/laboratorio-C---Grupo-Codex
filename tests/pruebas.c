@@ -70,3 +70,12 @@ for (i = 1; i < s.cantidad; i++) {
     assert(!validar_configuracion(&c, error, sizeof error));
     c = configuracion_predeterminada(); c.altura_corte = 1000000000.0;
     c.paso = 0.01; c.gravedad = 0.01;
+assert(!validar_configuracion(&c, error, sizeof error));
+    c = configuracion_predeterminada(); c.paso = 0.01;
+    iniciar_simulacion(&s, &c, 1);
+    for (i = 0; !s.finalizada && i < 100000; i++) avanzar_turno(&s);
+    assert(s.finalizada && s.cantidad == MAX_REGISTROS && s.omitidos > 0);
+    cerca(s.estado.altura, 474285.7142857143, 1e-6);
+    puts("OK: fisica, eventos, parametros, limites e historial.");
+    return 0;
+}
