@@ -1,1 +1,8 @@
+artemis
+artemis.exe
+pruebas
+pruebas.exe
+*.o
+historial.csv
+__pycache__/
 
