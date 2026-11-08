@@ -249,3 +249,39 @@ void mostrar_historial(const Simulacion *s)
         }
     }
 }
+int exportar_historial(const Simulacion *s, const char *ruta)
+{
+    FILE *archivo = fopen(ruta, "w");
+    int i, correcto = 1;
+    if (!archivo) return 0;
+    if (fprintf(archivo, "tiempo_s,altura_m,velocidad_m_s,fase\n") < 0) correcto = 0;
+    for (i = 0; i < s->cantidad && correcto; i++) {
+        const Estado *e = &s->historial[i];
+        if (fprintf(archivo, "%.9f,%.9f,%.9f,%s\n", e->tiempo, e->altura,
+                    e->velocidad, nombre_fase(e->fase)) < 0) correcto = 0;
+    }
+    if (s->omitidos && correcto && fprintf(archivo, "%.9f,%.9f,%.9f,%s\n",
+        s->estado.tiempo, s->estado.altura, s->estado.velocidad,
+        nombre_fase(s->estado.fase)) < 0) correcto = 0;
+    if (fclose(archivo) != 0) correcto = 0;
+    return correcto;
+}
+
+void mostrar_ayuda(void)
+{
+    puts("\nMovimiento vertical; origen en plataforma; sentido positivo hacia arriba.");
+    puts("Fase 1: v1 = a1*t1; y1 = a1*t1^2/2.");
+    puts("Fase 2: v2 = sqrt(v1^2 + 2*a2*(h-y1)).");
+    puts("Duracion fase 2: dt2 = 2*(h-y1)/(v1+v2).");
+    puts("Vuelo libre: a = -g; hmax = h + v2^2/(2*g).");
+    puts("Aceleracion neta en g: a1/g. Carga aparente ideal: 1+a1/g.");
+    puts("Se usan aceleraciones netas constantes, gravedad constante y sin rozamiento.");
+    puts("El modo nominal termina al corte; el modo fallo continua hasta el apogeo.");
+    puts("La subida posterior al corte ocurre tambien en vuelo balistico sin propulsion.");
+    puts("Cada turno avanza como maximo el paso elegido y se detiene en los eventos.");
+    puts("Puede cambiar parametros, avanzar por turnos o completar automaticamente.");
+    puts("El ultimo historial conserva sus propios parametros aunque luego los modifique.");
+    puts("El CSV reemplaza historial.csv. El arreglo guarda hasta 4096 muestras;");
+    puts("si se llena, se informa cuantas se omitieron y el CSV agrega el estado final.");
+}
+
