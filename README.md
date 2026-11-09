@@ -5,12 +5,12 @@ Trabajo Final Integrador de Algoritmos y Estructuras de Datos — UTN Facultad R
 
 ## 1. Integrantes y comisión
 
-**Comisión:** [Completar]
+**Comisión:** K 1.3
 
 | Integrante | Legajo |
 |---|---|
 | [Nombre y apellido] | [Legajo] |
-| [Nombre y apellido] | [Legajo] |
+| Lucio Tomás Binaghi | 28436 |
 | [Nombre y apellido] | [Legajo] |
 | [Nombre y apellido] | [Legajo] |
 | [Nombre y apellido] | [Legajo] |
