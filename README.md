@@ -68,11 +68,8 @@ Para ejecutar las pruebas con GNU Make, usar `make test`.
 
 **Herramienta utilizada:** Codex de OpenAI.
 
-| Consulta o tarea | Uso de la IA | Cómo se comprobó |
+| Consulta | Uso de la IA | Cómo se verificó |
 |---|---|---|
-| Desarrollar el escenario 1 en C a partir de la consigna. | Generación de la versión inicial, organización de los módulos y aplicación de las fórmulas físicas. | Compilación con GCC y comparación de los resultados con las ecuaciones del escenario. |
-| Mostrar las preguntas antes de sus respuestas y agregar el nombre del grupo. | Ajuste del menú y de la presentación de los resultados. | Ejecución del programa y revisión de la opción 4. |
-| Revisar errores y probar la simulación. | Preparación de pruebas de física, validación e historial. | Ejecución de las pruebas en C y contraste de 60 misiones con parámetros variados: 30 nominales y 30 con fallo. |
-| Resolver problemas de compilación y preparar la entrega. | Revisión de los comandos de GCC, organización de archivos y redacción del README. | Verificación de los comandos y de los archivos incluidos en el proyecto. |
+| Desarrollar el escenario 1 de Artemis en C. | Generación de la versión inicial del simulador, organización en módulos y ajustes del menú y los resultados. | Se compiló con GCC y se compararon los resultados con las fórmulas del escenario. |
+| Revisar el programa y preparar la entrega. | Ayuda para crear pruebas en C y redactar el README. | Se ejecutaron las pruebas y se comprobaron las instrucciones de compilación y ejecución. |
 
-**Aportes del equipo:** [Completar qué revisó o modificó cada integrante y cómo verificó su aporte.]
