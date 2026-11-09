@@ -13,7 +13,7 @@ Trabajo Final Integrador de Algoritmos y Estructuras de Datos — UTN Facultad R
 | Lucio Tomás Binaghi | 28436 |
 | [Tomas Misael Alcorta] | [28391] |
 | [Guadalupe  Denise Mac Lachlan] | [28483] |
-| [Nombre y apellido] | [Legajo] |
+| [Elias Ezequiel Bentolila] | [28363] |
 
 ## 2. Escenario y reglas
 
