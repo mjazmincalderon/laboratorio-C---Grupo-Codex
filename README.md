@@ -70,7 +70,7 @@ Para ejecutar las pruebas con GNU Make, usar `make test`.
 
 | Consulta o tarea | Uso de la IA | Cómo se comprobó |
 |---|---|---|
-| Desarrollar el escenario 1 en C a partir de la consigna. | Generación de la versión inicial, organización de los módulos y aplicación de las fórmulas físicas. | Compilación con GCC y comparación de los resultados con las ecuaciones del escenario. |
-| Mostrar las preguntas antes de sus respuestas y agregar el nombre del grupo. | Ajuste del menú y de la presentación de los resultados. | Ejecución del programa y revisión de la opción 4. |
-| Revisar errores y probar la simulación. | Preparación de pruebas de física, validación e historial. | Ejecución de las pruebas en C y contraste de 60 misiones con parámetros variados: 30 nominales y 30 con fallo. |
-| Resolver problemas de compilación y preparar la entrega. | Revisión de los comandos de GCC, organización de archivos y redacción del README. | Verificación de los comandos y de los archivos incluidos en el proyecto. |
+| Calcular la velocidad al desacople y la altura máxima en vuelo libre. | Se usó Codex para generar una primera versión del simulador, que incluía la implementación de estas fórmulas en C. | Se compiló con GCC y se compararon los resultados con las fórmulas de MRUV y vuelo libre. |
+| Mostrar las preguntas antes de sus respuestas y agregar el nombre del grupo. | Ajuste del menú y de la presentación de los resultados. | Se ejecutó el programa y se revisó la opción 4. |
+| Revisar errores y probar la simulación. | Preparación de pruebas de física, validación e historial. | Se ejecutaron las pruebas en C y se contrastaron 60 misiones con parámetros variados: 30 nominales y 30 con fallo. |
+| Resolver problemas de compilación y preparar la entrega. | Revisión de los comandos de GCC, organización de los archivos y redacción del README. | Se verificaron los comandos y los archivos incluidos en el proyecto. |
