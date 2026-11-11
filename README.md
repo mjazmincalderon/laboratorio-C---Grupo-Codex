@@ -31,17 +31,19 @@ En el **modo nominal**, la simulación termina al apagar los motores. En el **mo
 
 ## 3. Funcionamiento
 
-El simulador está escrito en **C** y funciona por consola. Está dividido en los siguientes archivos:
+El programa está escrito en **C** y se ejecuta por consola. Al iniciarse, carga los valores de la consigna y muestra el menú principal. Desde ahí se pueden cambiar los parámetros, consultar los resultados de los cálculos o iniciar una misión.
 
-| Archivo | Función |
-|---|---|
-| `main.c` | Muestra el menú y coordina las opciones del programa. |
-| `artemis.h` | Define constantes, estructuras, fases y prototipos de la simulación. |
-| `artemis.c` | Realiza los cálculos físicos, actualiza el estado de la nave y genera los reportes y el CSV. |
-| `validaciones.h` y `validaciones.c` | Declaran e implementan la lectura segura de enteros, reales y caracteres. |
-| `tests/pruebas.c` | Comprueba resultados físicos, cambios de fase y límites del historial. |
+El código se divide en módulos:
 
-La simulación guarda la configuración, los resultados y el estado actual en estructuras. En cada turno actualiza el tiempo, la altura, la velocidad y la fase. Un arreglo almacena los estados de la misión para poder consultarlos o exportarlos después. Las funciones de validación rechazan entradas incorrectas y permiten volver a intentarlo.
+- `main.c`: muestra el menú, lee la opción elegida y llama a la función correspondiente.
+- `artemis.h`: declara las estructuras que guardan la configuración, los resultados y el estado de la nave. También define las fases de vuelo.
+- `artemis.c`: calcula el movimiento, ejecuta los turnos y genera los reportes y el archivo CSV.
+- `validaciones.c` y `validaciones.h`: controlan que las entradas sean del tipo esperado y estén dentro de los rangos permitidos. Si un dato es inválido, se muestra un mensaje y se pide ingresarlo de nuevo.
+- `tests/pruebas.c`: comprueba los cálculos, los cambios de fase y los límites del historial.
+
+Al iniciar una misión, el programa calcula cuándo ocurren el desacople, el apagado y, si corresponde, el apogeo. En cada turno actualiza el **tiempo, la altura, la velocidad y la fase** con las fórmulas de movimiento. Si el turno alcanza un cambio de fase, se acorta para terminar justo en ese evento. El turno siguiente continúa desde la altura y la velocidad alcanzadas, con la aceleración de la nueva fase.
+
+Los estados de la última misión se guardan en un arreglo. Al terminar o interrumpir la simulación, el programa muestra un reporte con los parámetros usados, el estado final y los resultados calculados. El historial se puede consultar desde el menú o exportar a `historial.csv`.
 
 ## 4. Compilación y ejecución
 
