@@ -21,7 +21,13 @@ El simulador representa el ascenso vertical del cohete SLS con la nave Orion. Pa
 
 En el **modo nominal**, la simulación termina al apagar los motores. En el **modo de fallo**, la nave sigue subiendo por inercia hasta que su velocidad llega a cero en el apogeo. Se usa un modelo de MRUV, con gravedad constante de **9,8 m/s²** y sin resistencia del aire.
 
-Desde el menú se pueden cambiar los parámetros, consultar las respuestas de la consigna, iniciar una misión y ver o exportar el historial. Durante la misión, **1** avanza un turno, **2** la completa automáticamente y **0** la interrumpe. Cada turno se detiene si alcanza un evento, como el desacople, el apagado o el apogeo.
+### Reglas de la simulación
+
+- Desde el menú se pueden consultar, modificar o restaurar los parámetros, ver las respuestas de la consigna e iniciar una misión nominal o con fallo.
+- Durante la misión, **1** avanza un turno, **2** completa la simulación automáticamente y **0** la interrumpe.
+- El paso inicial es de **10 segundos**. Si el desacople, el apagado o el apogeo ocurre antes de que termine el turno, la simulación se detiene en ese evento.
+- Los parámetros se ingresan en unidades del Sistema Internacional. La altura de apagado debe ser mayor que la altura alcanzada en el desacople.
+- Después de una misión se puede consultar el reporte y exportar a `historial.csv` el tiempo, la altura, la velocidad y la fase registrados.
 
 ## 3. Funcionamiento
 
