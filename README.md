@@ -9,11 +9,11 @@ Trabajo Final Integrador de Algoritmos y Estructuras de Datos — UTN Facultad R
 
 | Integrante | Legajo |
 |---|---|
-| [macarena Jazmin calderon] | [28023] |
-| Lucio Tomás Binaghi | 28436 |
-| [Tomas Misael Alcorta] | [28391] |
-| [Guadalupe  Denise Mac Lachlan] | [28483] |
-| [Elias Ezequiel Bentolila] | [28363] |
+| macarena Jazmin calderon | [28023] |
+| Lucio Tomás Binaghi | [28436] |
+| Tomas Misael Alcorta | [28391] |
+| Guadalupe  Denise Mac Lachlan | [28483] |
+| Elias Ezequiel Bentolila | [28363] |
 
 ## 2. Escenario y reglas
 
