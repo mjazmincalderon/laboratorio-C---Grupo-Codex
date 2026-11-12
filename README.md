@@ -1,6 +1,6 @@
 # Simulador Artemis — Grupo Codex
 
-Trabajo Final Integrador de Algoritmos y Estructuras de Datos — UTN Facultad Regional Resistencia.  
+Trabajo Integrador de Algoritmos y Estructuras de Datos — UTN Facultad Regional Resistencia.  
 **Escenario 1: Ascenso y propulsión del SLS.**
 
 ## 1. Integrantes y comisión
